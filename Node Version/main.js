@@ -30,13 +30,19 @@ function parsePlayerUpdate(update) {
     steamid = update.player.steamid
     activity = update.player.activity
 
-    if(steamid == '76561198058071054' && activity !== 'menu') {
+    if(steamid == '76561197997996439' && activity !== 'menu') {
         try {
             health = update.player.state.health
-            if((health > 0 && previous_health == 0) || (health == 0 && previous_health > 0)) {
-                robot.keyTap('audio_pause')
-                console.log('play/pause')
+			
+            if(health > 0 && previous_health == 0) {
+                robot.keyTap('audio_stop')
+                console.log('pause')
             }
+			
+			if(health == 0 && previous_health > 0) {
+                robot.keyTap('audio_play')
+                console.log('play')
+			}				
 
             previous_health = update.player.state.health
         } catch(err) {
